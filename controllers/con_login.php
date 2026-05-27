@@ -7,7 +7,7 @@ function login ($usuario, $senha){
         header('Location: catalogo.php');
         
     }else{
-    usuario inválido;
+    "usuario inválido";
     }
 }
 exit();
