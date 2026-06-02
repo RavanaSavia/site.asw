@@ -1,4 +1,4 @@
-<?php include_one 'includes/header.php';?>
+<?php include_once "includes/header.php";?>
 
 <main>
     <form action="controllers/con_login.php" method="post">

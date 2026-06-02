@@ -16,54 +16,51 @@ function salvar_arquivo($dados){
         return false;
     }
 
-file_put_contents(
-    $CAMINHO,
-    json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  
-);
+    file_put_contents(
+        $CAMINHO,
+        json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  
+    );
 
-return true;
+    return true;
 }
 
-function cadrastrar_usuario($nome, $email, $senha){
+function cadastrar_usuario($nome, $email, $senha){
+    if(empty($nome)|| empty($email)|| empty($senha)){
+        return false;
+    }
+
+    $usuario = [
+    "nome" => $nome,
+    "email" => $email,
+    "senha" => $senha
+    ];
+
+    $usuarios = carregar_arquivo();
+
+    $usuarios[] = $usuario;
+
+    if(!salvar_arquivo($usuarios)){
+        header("Locatiom: ../cadastar.php");
+    }else{
+        header("Location: ../login.php");
+    }
 
 }
-
-
-$usuario = [
-    $nome = 'nome',
-    $email = 'email',
-    $senha  = 'senha',
-];
-
-
-
-
-
-
-
-
-
-
-
-
-
-if ()
 
 function login($email, $senha){
     $usuarios = carregar_arquivo();
 
 
-    foreach ($usuarios as $usuarios) {
-        print_r($usuario);
-        print('<br>')
+    foreach ($usuarios as $usuario) {
+
         if ($email === $usuario['email'] && $senha == $usuario['senha']){
             $_SESSION['usuario'] = $usuario['nome'];
             $_SESSION['logado'] = true;
-            header('Locationn:../catalogo.php');
+            header("Locationn:../catalogo.php");
 
         }else{
-        $_SESSION['erro']= Usuario ou Senha incorreto
-        header(Location>../login.php);
+        $_SESSION['erro']= "Usuario ou Senha incorreto";
+        header("Location: ../login.php");
         }
     
     }
@@ -76,8 +73,8 @@ function login($email, $senha){
 
 $funcao = $_GET['funcao'] ??  'início';
 
-if ($funcao === 'cadrastrar'){
-    cadrastrar_usuario(
+if ($funcao === 'cadastrar'){
+    cadastrar_usuario(
     $_POST['nome'],
     $_POST['email'],
     $_POST['senha']
@@ -86,5 +83,5 @@ if ($funcao === 'cadrastrar'){
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
 
-    login($usuario, $senha)
+    login($usuario, $senha);
 }
