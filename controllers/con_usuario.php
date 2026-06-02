@@ -2,7 +2,7 @@
 session_start();
 $CAMINHO = __DIR__.'/../data/user.json';
 
-carregar_arquivo(){
+function carregar_arquivo(){
     global $CAMINHO;
     $arquivo = file_get_contents($CAMINHO);
     $usuarios = json_decode($arquivo, true);
